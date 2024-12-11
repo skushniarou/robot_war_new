@@ -2,10 +2,9 @@ package btc.com.Entities;
 
 import jakarta.persistence.*;
 
-@Entity(name = "Robot")
+@Entity (name = "RobotEntity")
 @Table (name = "robot")
 public class RobotEntity {
-	@Column(name = "robot_id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

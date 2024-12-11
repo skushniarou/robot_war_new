@@ -29,7 +29,6 @@ class ItemFactoryTest {
 				break;
 			}
 		}
-
 		assertTrue(isValidType, "Item type should be one of the valid ItemType values");
 	}
 }
