@@ -23,7 +23,7 @@ class MapItemTest {
 		assertEquals(MapItemType.ITEM, item.getType(), "Type should be ITEM");
 		assertEquals(2, item.getIndex(), "Index should be 2");
 		assertNotNull(item.getProperties(), "Item should have properties");
-		assertTrue(item.getProperties() instanceof Item, "Properties should be of type Item");
+		assertInstanceOf(Item.class, item.getProperties(), "Properties should be of type Item");
 
 
 		// Test für gültige MapItem nach Typ: Item
@@ -35,16 +35,13 @@ class MapItemTest {
 
 	@Test
 	void testMapItemCreationWithInvalidIndex() {
-		// Test für ungültige Indizes (0 oder negativ)
-		assertThrows(IllegalArgumentException.class, () -> new MapItem(MapItemType.ROBOT, 0, null),
-				"Index cannot be 0 or negative");
+		// Test für negative index -> Position in Array
 		assertThrows(IllegalArgumentException.class, () -> new MapItem(MapItemType.ROBOT, -1, null),
 				"Index cannot be 0 or negative");
 	}
 
 	@Test
 	void testToString() {
-		// Test für die toString-Methode
 		MapItem wall = new MapItem(MapItemType.WALL, 3, null);
 		String expected = "MapItem {type=WALL, index=3}";
 		assertEquals(expected, wall.toString(), "toString should return the correct format");
