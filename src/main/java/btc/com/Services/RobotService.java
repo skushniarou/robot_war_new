@@ -30,6 +30,7 @@ public class RobotService {
 	}
 
 	public static void updateRobot(Session session, int robotId, String name, int health, int attackDamage, int attackRange, int movementRate) {
+		session.beginTransaction();
 		RobotEntity robot = session.get(RobotEntity.class, robotId);
 		if (robot != null) {
 			robot.setName(name);
@@ -39,6 +40,7 @@ public class RobotService {
 			robot.setMovementRate(movementRate);
 
 			session.merge(robot);
+			session.getTransaction().commit();
 			System.out.println("Roboter mit ID " + robotId + " wurde aktualisiert.");
 		} else {
 			System.out.println("Roboter mit ID " + robotId + " wurde nicht gefunden.");
@@ -60,9 +62,11 @@ public class RobotService {
 	}
 
 	public static void deleteRobot(Session session, int robotId) {
+		session.beginTransaction();
 		RobotEntity robot = session.get(RobotEntity.class, robotId);
 		if (robot != null) {
 			session.remove(robot);
+			session.getTransaction().commit();
 			System.out.println("Roboter mit ID " + robotId + " wurde gelöscht.");
 		} else {
 			System.out.println("Roboter mit ID " + robotId + " wurde nicht gefunden.");
