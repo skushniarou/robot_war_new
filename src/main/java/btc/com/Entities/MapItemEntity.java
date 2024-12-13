@@ -1,42 +1,48 @@
 package btc.com.Entities;
 
+
+import btc.com.Enums.MapItemType;
 import jakarta.persistence.*;
 
-@Entity(name = "MapItem")
+@Entity(name = "MapItemEntity")
 @Table (name = "map_item")
 public class MapItemEntity {
 	@Column(name = "map_item_id")
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "type")
-	private String type;
-	@Column(name = "index")
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private MapItemType type;
+	@Column(name = "index_position", nullable = false)
 	private int index;
-	@Column(name = "properties")
-	private String properties;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "map_id", nullable = false)
+	private MapEntity map;
 
-	public MapItemEntity() {
-	}
+	public MapItemEntity() {}
 
-	public MapItemEntity(String type, int index, String properties) {
+	public MapItemEntity(MapItemType type, int index) {
 		if (index < 0) {
 			throw new IllegalArgumentException("Index cannot be negative");
 		}
 		this.type = type;
 		this.index = index;
-		this.properties = properties;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public String getType() {
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public MapItemType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(MapItemType type) {
 		this.type = type;
 	}
 
@@ -48,11 +54,11 @@ public class MapItemEntity {
 		this.index = index;
 	}
 
-	public String getProperties() {
-		return properties;
+	public MapEntity getMap() {
+		return map;
 	}
 
-	public void setProperties(String properties) {
-		this.properties = properties;
+	public void setMap(MapEntity map) {
+		this.map = map;
 	}
 }

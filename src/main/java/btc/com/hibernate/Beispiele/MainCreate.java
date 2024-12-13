@@ -1,5 +1,6 @@
-package btc.com.hibernate;
+package btc.com.hibernate.Beispiele;
 
+import btc.com.hibernate.Connection;
 import org.hibernate.Session;
 
 public class MainCreate {

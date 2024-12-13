@@ -1,7 +1,6 @@
 package btc.com.Services;
 
 import btc.com.Entities.RobotEntity;
-import btc.com.hibernate.Connection;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -21,7 +20,7 @@ public class RobotService {
 
 			session.persist(robot);
 			session.getTransaction().commit();
-			System.out.println("Roboter mit " + robot.getId() + " wurde erstellt.");
+			System.out.println("Roboter mit ID " + robot.getId() + " wurde erstellt.");
 		} catch (Exception e) {
 			if (session.getTransaction() != null) {
 				session.getTransaction().rollback();

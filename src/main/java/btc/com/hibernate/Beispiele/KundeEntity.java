@@ -1,4 +1,4 @@
-package btc.com.hibernate;
+package btc.com.hibernate.Beispiele;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

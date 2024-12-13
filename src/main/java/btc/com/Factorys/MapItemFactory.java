@@ -1,24 +1,21 @@
 package btc.com.Factorys;
 
-import btc.com.Enums.MapItemType;
-import btc.com.Model.Item;
+import btc.com.Entities.ItemEntity;
+import btc.com.Enums.ItemType;
 import btc.com.Model.MapItem;
 
+import java.util.Random;
+
 public class MapItemFactory {
-	public static MapItem createMapItemFromIndex(int index) {
-		// Zuweisung basierend auf Index
-		switch (index) {
-			case 1:
-				return new MapItem(MapItemType.ROBOT, index, null);
-			case 2:
-				// Ein MapItem vom Typ ITEM zufällig generieren und zurückgeben
-				Item randomItem = ItemFactory.createItem();
-				return new MapItem(MapItemType.ITEM, index, randomItem);
-			case 3:
-				//ToDo: Verschiede Arten von Walls defenieren und implimintieren
-				return new MapItem(MapItemType.WALL, index, null);
-			default:
-				throw new IllegalArgumentException("Invalid index: " + index + ". Must be 1 (ROBOT), 2 (ITEM), or 3 (WALL)");
-		}
+
+	public static MapItem createMapItemFromItemEntity(ItemEntity itemEntity, int index) {
+		return new MapItem(btc.com.Enums.MapItemType.ITEM, index);
+	}
+
+	public static ItemEntity generateRandomItem() {
+		ItemType[] types = ItemType.values();
+		ItemType randomType = types[new Random().nextInt(types.length)];
+		return new ItemEntity(randomType);
 	}
 }
+

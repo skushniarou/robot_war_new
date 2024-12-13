@@ -5,37 +5,42 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity(name = "Map")
+@Entity(name = "MapEntity")
 @Table (name = "map")
 public class MapEntity {
 	@Column(name = "map_id")
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column (name = "mapSizeX")
+	@Column (name = "mapSizeX", nullable = false)
 	private int mapSizeX;
-	@Column (name = "mapSize")
+	@Column (name = "mapSize", nullable = false)
 	private int mapSize;
-	@OneToMany (mappedBy = "map", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<MapItem> mapItems;
-	@Column (name = "mapArray")
-	private String[] mapArray;
+	@Column(name = "map_name", nullable = false)
+	private String mapName;
+
+	@OneToMany(mappedBy = "map", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MapItemEntity> mapItems;
 
 	public MapEntity() {
 	}
 
-	public MapEntity(int mapSizeX, int mapSize, List<MapItem> mapItems, String[] mapArray) {
+	public MapEntity(String mapName, int mapSizeX, int mapSize, List<MapItemEntity> mapItems) {
 		if (mapSizeX <= 0 || mapSize <= 0) {
 			throw new IllegalArgumentException("Map size must be positive");
 		}
+		this.mapName = mapName;
 		this.mapSizeX = mapSizeX;
 		this.mapSize = mapSize;
 		this.mapItems = mapItems;
-		this.mapArray = mapArray;
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getMapSizeX() {
@@ -54,19 +59,19 @@ public class MapEntity {
 		this.mapSize = mapSize;
 	}
 
-	public List<MapItem> getMapItems() {
+	public String getMapName() {
+		return mapName;
+	}
+
+	public void setMapName(String mapName) {
+		this.mapName = mapName;
+	}
+
+	public List<MapItemEntity> getMapItems() {
 		return mapItems;
 	}
 
-	public void setMapItems(List<MapItem> mapItems) {
+	public void setMapItems(List<MapItemEntity> mapItems) {
 		this.mapItems = mapItems;
-	}
-
-	public String[] getMapArray() {
-		return mapArray;
-	}
-
-	public void setMapArray(String[] mapArray) {
-		this.mapArray = mapArray;
 	}
 }

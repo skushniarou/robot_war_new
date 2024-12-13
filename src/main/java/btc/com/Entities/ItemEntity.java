@@ -1,22 +1,24 @@
 package btc.com.Entities;
 
+import btc.com.Enums.ItemType;
 import jakarta.persistence.*;
 
 @Entity(name = "Item")
-@Table (name = "item")
+@Table(name = "items")
 public class ItemEntity {
-	@Column(name = "item_id")
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "item_id")
 	private int id;
-	@Column(name = "item_type")
+
 	@Enumerated(EnumType.STRING)
-	private String type;
+	@Column(name = "item_type", nullable = false)
+	private ItemType type;
 
-	public ItemEntity() {
-	}
+	public ItemEntity() {}
 
-	public ItemEntity(String type) {
+	public ItemEntity(ItemType type) {
 		this.type = type;
 	}
 
@@ -24,11 +26,11 @@ public class ItemEntity {
 		return id;
 	}
 
-	public String getType() {
+	public ItemType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ItemType type) {
 		this.type = type;
 	}
 }

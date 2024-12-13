@@ -20,23 +20,38 @@ public class Robot implements RobotInterface {
 		this.movementRate = movementRate;
 	}
 
-	// Getter methods
-	@Override
+	public Robot() {}
+
+	// Konstruktor zum Laden aus einer RobotEntity
+	public Robot(btc.com.Entities.RobotEntity entity) {
+		this.id = entity.getId();
+		this.name = entity.getName();
+		this.health = entity.getHealth();
+		this.attackDamage = entity.getAttackDamage();
+		this.attackRange = entity.getAttackRange();
+		this.movementRate = entity.getMovementRate();
+	}
+
 	public int getId() {
 		return id;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
 
-	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getHealth() {
 		return health;
 	}
 
-	@Override
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
 	public int getAttackDamage() {
 		return attackDamage;
 	}
@@ -45,7 +60,6 @@ public class Robot implements RobotInterface {
 		this.attackDamage = attackDamage;
 	}
 
-	@Override
 	public int getAttackRange() {
 		return attackRange;
 	}
@@ -54,34 +68,11 @@ public class Robot implements RobotInterface {
 		this.attackRange = attackRange;
 	}
 
-	@Override
 	public int getMovementRate() {
 		return movementRate;
 	}
 
 	public void setMovementRate(int movementRate) {
 		this.movementRate = movementRate;
-	}
-
-	@Override
-	public void takeDamage(int damage) {
-		this.health -= damage;
-	}
-
-	@Override
-	public boolean isAlive() {
-		return this.health > 0;
-	}
-
-	@Override
-	public String toString() {
-		return "Robot {" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", health=" + health +
-				", attackDamage=" + attackDamage +
-				", attackRange=" + attackRange +
-				", movementRate=" + movementRate +
-				'}';
 	}
 }
