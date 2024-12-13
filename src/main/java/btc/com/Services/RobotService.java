@@ -2,13 +2,14 @@ package btc.com.Services;
 
 import btc.com.Entities.RobotEntity;
 import btc.com.hibernate.Connection;
-import btc.com.hibernate.KundeEntity;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class RobotService {
 
 	public static void createRobot( Session session, String name, int health, int attackDamage, int attackRange, int movementRate) {
-
 		try {
 			session.beginTransaction();
 			RobotEntity robot = new RobotEntity();
@@ -30,6 +31,7 @@ public class RobotService {
 	}
 
 	public static void updateRobot(Session session, int robotId, String name, int health, int attackDamage, int attackRange, int movementRate) {
+		try {
 		session.beginTransaction();
 		RobotEntity robot = session.get(RobotEntity.class, robotId);
 		if (robot != null) {
@@ -44,6 +46,12 @@ public class RobotService {
 			System.out.println("Roboter mit ID " + robotId + " wurde aktualisiert.");
 		} else {
 			System.out.println("Roboter mit ID " + robotId + " wurde nicht gefunden.");
+		}
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+			e.printStackTrace();
 		}
 	}
 
@@ -61,7 +69,17 @@ public class RobotService {
 		}
 	}
 
+	public static List<RobotEntity> readAllRobots(Session session){
+		Query<RobotEntity> query = session.createQuery("FROM RobotEntity", RobotEntity.class);
+		List<RobotEntity> robots = query.list();
+		for (RobotEntity robot : robots) {
+			System.out.println(robot.getId() + ": " + robot.getName());
+		}
+		return robots;
+	}
+
 	public static void deleteRobot(Session session, int robotId) {
+		try {
 		session.beginTransaction();
 		RobotEntity robot = session.get(RobotEntity.class, robotId);
 		if (robot != null) {
@@ -70,6 +88,12 @@ public class RobotService {
 			System.out.println("Roboter mit ID " + robotId + " wurde gelöscht.");
 		} else {
 			System.out.println("Roboter mit ID " + robotId + " wurde nicht gefunden.");
+		}
+		} catch (Exception e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+			e.printStackTrace();
 		}
 	}
 }
