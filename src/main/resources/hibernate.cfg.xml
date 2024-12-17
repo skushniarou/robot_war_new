@@ -13,8 +13,11 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.type">trace</property>
         <mapping class="btc.com.Entities.GameEntity"/>
-        <mapping class="btc.com.Entities.RobotEntity"/>
+        <mapping class="btc.com.Entities.ItemEntity"/>
         <mapping class="btc.com.Entities.MapEntity"/>
         <mapping class="btc.com.Entities.MapItemEntity"/>
+        <mapping class="btc.com.Entities.MoveEntity"/>
+        <mapping class="btc.com.Entities.PlayerEntity"/>
+        <mapping class="btc.com.Entities.RobotEntity"/>
     </session-factory>
 </hibernate-configuration>
