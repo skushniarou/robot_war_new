@@ -9,7 +9,7 @@ public class RobotUpdate {
 		Session session = Connection.openSession();
 
 		try {
-			RobotService.updateRobot(session, 7, "Rebecca", 20, 10, 5, 3);
+			RobotService.updateRobot(session, 2, "Rebecca", 1, 5, 2, 3);
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
